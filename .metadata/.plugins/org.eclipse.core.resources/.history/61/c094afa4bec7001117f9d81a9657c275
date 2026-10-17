@@ -1,0 +1,86 @@
+/*
+ * stm32f407xx.h
+ *
+ *  Created on: Oct 11, 2026
+ *      Author: Tejas Sawant
+ */
+
+#include "stdint.h"
+
+#ifndef INC_STM32F407XX_H_
+#define INC_STM32F407XX_H_
+
+#define __vo volatile
+
+// From the reference manual : Table 3. Memory mapping vs. Boot mode/physical remap
+#define FLASH_BASEADDRESS 				0x08000000U
+#define SRAM1_BASEADDRESS 				0x20000000U
+#define SRAM2_BASEADDRESS 				0x2001C000U
+#define ROM_BASEADDRESS 				0x1FFF000U
+#define SRAM 							SRAM1_BASEADDRESS
+
+// AHBx and APBx peripheral bus base address
+#define APB1_BASEADDRESS 				0x40000000U
+#define APB2_BASEADDRESS 				0x40010000U
+#define AHB1_BASEADDRESS 				0x40020000U
+#define AHB2_BASEADDRESS 				0x50000000U
+
+//Define the base address of peripheral which are hanging on the AHB1 bus
+// TODO : Complete all peripheral
+
+#define GPIOA_BASEADDRESS 				(AHB1_BASEADDRESS + 0X0000) 	//0x40020000U
+#define GPIOB_BASEADDRESS 				(AHB1_BASEADDRESS + 0X0400) 	//0x40020400U
+#define GPIOC_BASEADDRESS 				(AHB1_BASEADDRESS + 0X0800) 	//0x40020800U
+#define GPIOD_BASEADDRESS 				(AHB1_BASEADDRESS + 0X0C00) 	//0x40020C00U
+#define GPIOE_BASEADDRESS 				(AHB1_BASEADDRESS + 0X1000) 	//0x40021000U
+#define GPIOF_BASEADDRESS 				(AHB1_BASEADDRESS + 0X1400) 	//0x40021400U
+#define GPIOG_BASEADDRESS 				(AHB1_BASEADDRESS + 0X1800) 	//0x40021800U
+#define GPIOH_BASEADDRESS 				(AHB1_BASEADDRESS + 0X1C00) 	//0x40021C00U
+#define GPIOH_BASEADDRESS 				(AHB1_BASEADDRESS + 0X2000) 	//0x40022000U
+
+//Define the base address of peripheral which are hanging on the APB1 bus
+#define I2C1_BASEADDR 					(APB1_BASEADDRESS + 0x5400)
+#define I2C2_BASEADDR 					(APB1_BASEADDRESS + 0x5800)
+#define I2C3_BASEADDR 					(APB1_BASEADDRESS + 0x5C00)
+
+#define SPI2_BASEADDR				    (APB1_BASEADDRESS + 0x3800)
+#define SPI3_BASEADDR 					(APB1_BASEADDRESS + 0x3C00)
+
+#define UART4_BASEADDR 					(APB1_BASEADDRESS + 0x4C00)
+#define UART5_BASEADDR 					(APB1_BASEADDRESS + 0x5000)
+//#define UART7_BASEADDR
+//#define UART8_BASEADDR
+#define USART2_BASEADDR 				(APB1_BASEADDRESS + 0x4400)
+#define USART3_BASEADDR 				(APB1_BASEADDRESS + 0x4800)
+
+//Define the base address of peripheral which are hanging on the APB2 bus
+#define EXTI_BASEADDR 					(APB2_BASEADDRESS + 0x3C00)
+#define SPI1_BASEADDR 					(APB2_BASEADDRESS + 0x3000)
+#define USART1_BASEADDR 				(APB2_BASEADDRESS + 0x3100)
+#define USART6_BASEADDR 				(APB2_BASEADDRESS + 0x1400
+#define SYSCFG 							(APB2_BASEADDRESS + 0x3800)
+
+/***********************************peripheral register definition structure **************************************/
+/*
+ * Note: Register of peripheral are specific to MCu
+ * e,g Number if register of SPI peripheral of STM32x family if MCU may be differet
+ * Compared to number if register of SPT peripheral
+ * Please check your device RM
+ */
+
+typedef struct
+{
+	uint32_t MODER; 	/*GPIO port mode register (GPIOx_MODER) Address offset: 0x00 */
+	uint32_t OTYPER; 	/*GPIO port output type register (GPIOx_OTYPER) Address offset: 0x04 */
+	uint32_t OSPEEDR;	/*GPIO port output speed register (GPIOx_OSPEEDR) Address offset: 0x08 */
+	uint32_t PUPDR;		/*GPIO port pull-up/pull-down register (GPIOx_PUPDR)) Address offset: 0x0C */
+	uint32_t IDR;		/*GPIO port input data register (GPIOx_IDR) Address offset: 0x10 */
+	uint32_t ODR;		/*GPIO port output data register (GPIOx_ODR) Address offset: 0x14 */
+	uint32_t BSRR;		/*GPIO port bit set/reset register (GPIOx_BSRR) Address offset: 0x18 */
+	uint32_t LCKR;		/*GPIO port configuration lock register (GPIOx_LCKR) Address offset: 0x1C */
+	uint32_t AFRL[2];	/*AFRL[0]: GPIO alternate function low register (GPIOx_AFRL)  Address offset: 0x20*/
+	//uint32_t AFRH;	/*AFRL[1]: GPIO alternate function high register (GPIOx_AFRL)  Address offset:0x24 */
+}GPIO_RegDef_t;
+
+
+#endif /* INC_STM32F407XX_H_ */
